@@ -9,7 +9,7 @@ import { Util } from "../utils/Util";
 import YouTube from "youtube-sr";
 import AudioFilters from "../utils/AudioFilters";
 import { PlayerError, ErrorStatusCode } from "./PlayerError";
-import ytdl from "ytdl-core";
+import ytdl_core from "ytdl-core";
 
 class Queue<T = unknown> {
     public readonly guild: Guild;
@@ -610,7 +610,7 @@ class Queue<T = unknown> {
         // TODO: remove discord-ytdl-core
         let stream;
         if (["youtube"].includes(track.raw.source)) {
-           stream = ytdl(track.url, { filter: 'audioonly' }, { passes: 3 })
+           stream = ytdl_core(track.url, { filter: 'audioonly' })
         } else if (["spotify"].includes(track.raw.source)) {
             if (track.raw.source === "spotify" && !track.raw.engine) {
                 track.raw.engine = await YouTube.search(`${track.author} ${track.title}`, { type: "video" })
